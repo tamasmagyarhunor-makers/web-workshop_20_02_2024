@@ -8,6 +8,17 @@ app = Flask(__name__)
 
 # == Example Code Below ==
 
+@app.route('/', methods=['GET'])
+def get_index_home():
+    return {
+        'success': True,
+        'data': {
+            'some_property': 'some value',
+            'some_other_property': 13,
+            'amazing': True
+        }
+    }
+
 # GET /emoji
 # Returns a emojiy face
 # Try it:
