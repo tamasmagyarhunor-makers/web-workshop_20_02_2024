@@ -1,14 +1,24 @@
 import os
 from flask import Flask, request
+from lib.item_repository import ItemRepository
+from lib.database_connection import get_flask_database_connection
 
 # Create a new Flask app
 app = Flask(__name__)
 
 # == Your Routes Here ==
-
+@app.route('/items', methods=['GET'])
+def get_items():
+    connection = get_flask_database_connection(app)
+    repository = ItemRepository(connection)
+    list_of_items = repository.all()
+    list_of_str_items = []
+    for item in list_of_items:
+        list_of_str_items.append(str(item))
+    return " ".join(list_of_str_items)
 # == Example Code Below ==
 
-@app.route('/', methods=['GET'])
+@app.route('/e', methods=['GET'])
 def get_index_home():
     return {
         'success': True,
